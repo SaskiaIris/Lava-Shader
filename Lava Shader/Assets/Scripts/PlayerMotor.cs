@@ -31,10 +31,10 @@ public class PlayerMotor : MonoBehaviour {
         velocity = new Vector3(0, 0, v);
         velocity = transform.TransformDirection(velocity);
 
-        if(v > 0.1) {
+        if(v > 0.01) {
             velocity *= forwardSpeed;
             animator.SetBool("Walk", true);
-        } else if(v < -0.1) {
+        } else if(v < -0.01) {
             velocity *= backwardSpeed;
             animator.SetBool("Walk back", true);
         } else {
