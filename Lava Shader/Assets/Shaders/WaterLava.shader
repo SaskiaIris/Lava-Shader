@@ -3,6 +3,7 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _Size("Size", float) = 1
     }
     SubShader
     {
@@ -34,6 +35,7 @@
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float _Size;
 
             v2f vert (appdata v)
             {
@@ -46,7 +48,27 @@
 
             fixed4 frag (v2f i) : SV_Target
             {
+                float t = _Time.y;
+                
                 float4 col = 0;
+
+                float2 aspect = float2(2,1);
+                float2 uv = i.uv * _Size * aspect;
+                float2 gv = frac(uv)-0.5;
+
+                float x = 0;
+                float y = sin(t + sin(t)) * 0.45 -t; // 0.45 is zodat hij niet buiten de box gaat
+
+                float2 dropPos = (gv-float2(x, y)) / aspect;
+
+                float drop = smoothstep(.05, .03, length(dropPos));
+                col += drop;
+
+                //col.rg = gv;
+                if (gv.x > .48 || gv.y > .49) {
+                    col = float4(1,0,0,1);
+                }
+
                 return col;
             }
             ENDCG
