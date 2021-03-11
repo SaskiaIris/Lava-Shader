@@ -14,9 +14,11 @@ public class PlayerMotor : MonoBehaviour {
     private Vector3 velocity;
     private float h;
     private float v;
+    private float waveTime;
+    private float waveStop;
 
     private bool isJumping;
-
+    private bool isWaving;
 
     Animator animator;
     Rigidbody rigidBody;
@@ -26,6 +28,8 @@ public class PlayerMotor : MonoBehaviour {
         rigidBody = GetComponent<Rigidbody>();
 
         isJumping = false;
+        isWaving = false;
+        waveTime = 2.0f;
     }
 
 	void Update() {
@@ -55,6 +59,17 @@ public class PlayerMotor : MonoBehaviour {
             rigidBody.AddForce(new Vector3(0,jumpSpeed,0), ForceMode.Impulse);
             animator.SetBool("Jump", true);
             isJumping = true;
+        }
+
+        if(isWaving && Time.time > waveStop) {
+            animator.SetBool("Wave", false);
+            isWaving = false;
+        }
+
+        if(Input.GetButton("Wave") && isWaving == false) {
+            animator.SetBool("Wave", true);
+            isWaving = true;
+            waveStop = Time.time + waveTime;
         }
 
         transform.localPosition += velocity * Time.fixedDeltaTime;
