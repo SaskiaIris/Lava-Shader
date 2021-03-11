@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Animator))]
 //[RequireComponent(typeof(CharacterController))]
@@ -79,6 +80,12 @@ public class PlayerMotor : MonoBehaviour {
         if(other.gameObject.transform.tag == "Floor") {
             isJumping = false;
             animator.SetBool("Jump", false);
+        } else {
+        
+        }
+
+        if(other.gameObject.transform.tag == "Lava") {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         } else {
         
         }
