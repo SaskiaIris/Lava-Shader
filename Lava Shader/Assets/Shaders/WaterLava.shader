@@ -54,20 +54,31 @@
 
                 float2 aspect = float2(2,1);
                 float2 uv = i.uv * _Size * aspect;
-                float2 gv = frac(uv)-0.5;
+                uv.y += t * 0.25; //Zodat de druppel niet weer omhoog gaat
+                float2 gv = frac(uv)-0.5; //-0.5 zodat het een rondje tekent en niet de helft
 
                 float x = 0;
-                float y = sin(t + sin(t)) * 0.45 -t; // 0.45 is zodat hij niet buiten de box gaat
+                float y = -sin(t + sin(t + sin(t) * 0.5)) * 0.45; // 0.45 is zodat hij niet buiten de box gaat
 
                 float2 dropPos = (gv-float2(x, y)) / aspect;
-
                 float drop = smoothstep(.05, .03, length(dropPos));
+
+                float2 trailPos = (gv - float2(x, 0)) / aspect;
+                trailPos.y = (frac(trailPos.y * 8)- 0.5) / 8; //-0.5 zodat het een rondje tekent en niet de helft
+                float trail = smoothstep(.05, .03, length(trailPos));
+                trail *= smoothstep(-0.05, 0.05, dropPos.y);
+
                 col += drop;
+                col += trail;
 
                 //col.rg = gv;
                 if (gv.x > .48 || gv.y > .49) {
-                    col = float4(1,0,0,1);
+                    col = float4(1, 0, 0, 1);
                 }
+
+                float2 offset = drop + trail;
+
+                col = tex2D(_MainTex, i.uv + offset + gv);
 
                 return col;
             }
