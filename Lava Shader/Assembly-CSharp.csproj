@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\FlowingLava.cs" />
     <Compile Include="Assets\Scripts\PlayerMotor.cs" />
     <None Include="Assets\Shaders\WaterLava.shader" />
+    <None Include="Assets\Third Party Assets\Customizable Skybox\Stylized Sky\Shaders\Stylized Sky.shader" />
     <None Include="Assets\Third Party Assets\PolygonCity\Change_Log.txt" />
     <Reference Include="UnityEngine">
       <HintPath>D:/Program Files/2019.4.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
