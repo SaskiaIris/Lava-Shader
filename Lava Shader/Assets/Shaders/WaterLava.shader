@@ -3,7 +3,7 @@
     Properties
     {
         [Header(Textures)]
-        [Space] _MainTex("Texture", 2D) = "white" {}
+        [Space] _MainTex("Texture", 2D) = "black" {}
 
         [Space(15)] [Header(Sizing)]
         [Space] _Size("Size", float) = 1
@@ -75,20 +75,31 @@
                 float2 dropPos = (gridView-float2(x, y)) / aspect;
                 float drop = smoothstep(.05, .03, length(dropPos));
 
-                float2 trailPos = (gridView - float2(x, 0)) / aspect;
+                float2 trailPos = (gridView - float2(x, t * 0.25)) / aspect;
                 trailPos.y = (frac(trailPos.y * _TrailAmount)- 0.5) / _TrailAmount; //-0.5 zodat het een rondje tekent en niet de helft
-                float trail = smoothstep(.05, .03, length(trailPos));
-                trail *= smoothstep(-0.05, 0.05, dropPos.y);
+                float trail = smoothstep(0.03, 0.01, length(trailPos));
+                float realTrail = smoothstep(-0.05, 0.05, dropPos.y);
+                realTrail *= smoothstep(0.5, y, gridView.y);
+                trail *= realTrail;
+                realTrail *= smoothstep(0.05, 0.04, abs(dropPos.x));
 
-                col += drop;
-                col += trail;
+                float2 offset = 0;
+                //offset += drop;
+                //offset += trail;
+                offset += realTrail * 0.5;
+                
+                
+                //col += realTrail * 0.5;
+                //col += drop;
+                //col += trail;
 
                 //Hieronder is de code voor de randen die het veld verdelen
-                if (gridView.x > .48 || gridView.y > .49) {
+                /*if (gridView.x > .48 || gridView.y > .49) {
                     col = float4(1, 0, 0, 1);
-                }
+                }*/
 
-                float2 offset = drop + trail;
+                //float2 offset = drop + trail + realTrail;
+                
 
                 col = tex2D(_MainTex, i.uv + offset + gridView);
 
