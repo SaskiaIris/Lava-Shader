@@ -57,7 +57,8 @@
                 uv.y += t * 0.25; //Zodat de druppel niet weer omhoog gaat
                 float2 gv = frac(uv)-0.5; //-0.5 zodat het een rondje tekent en niet de helft
 
-                float x = 0;
+                float w = i.uv.y * 10;
+                float x = sin(3*w)*pow(sin(w), 6)*0.45; // 0.45 is zodat hij niet buiten de box gaat
                 float y = -sin(t + sin(t + sin(t) * 0.5)) * 0.45; // 0.45 is zodat hij niet buiten de box gaat
 
                 float2 dropPos = (gv-float2(x, y)) / aspect;
