@@ -10,6 +10,7 @@ public class PlayerMotor : MonoBehaviour {
     public float backwardSpeed = 1f;
     public float rotateSpeed = 1f;
     public float jumpSpeed = 6f;
+    public float runSpeed = 2f;
 
 
     private Vector3 velocity;
@@ -20,6 +21,8 @@ public class PlayerMotor : MonoBehaviour {
 
     private bool isJumping;
     private bool isWaving;
+    private bool isWalkingForward;
+    private bool isRunning;
 
     Animator animator;
     Rigidbody rigidBody;
@@ -30,6 +33,9 @@ public class PlayerMotor : MonoBehaviour {
 
         isJumping = false;
         isWaving = false;
+        isWalkingForward = false;
+        isRunning = false;
+
         waveTime = 2.0f;
     }
 
@@ -42,13 +48,17 @@ public class PlayerMotor : MonoBehaviour {
 
         if(v > 0.01) {
             velocity *= forwardSpeed;
-            animator.SetBool("Walk", true);
+            isWalkingForward = true;
+            //animator.SetBool("Walk", true);
         } else if(v < -0.01) {
             velocity *= backwardSpeed;
+            isWalkingForward = false;
             animator.SetBool("Walk back", true);
         } else {
-            animator.SetBool("Walk", false);
+            //animator.SetBool("Walk", false);
+            isWalkingForward = false;
             animator.SetBool("Walk back", false);
+            isRunning = false;
         }
 
         if(h != 0) {
@@ -63,14 +73,28 @@ public class PlayerMotor : MonoBehaviour {
         }
 
         if(isWaving && Time.time > waveStop) {
-            animator.SetBool("Wave", false);
+            //animator.SetBool("Wave", false);
             isWaving = false;
         }
 
         if(Input.GetButton("Wave") && isWaving == false) {
-            animator.SetBool("Wave", true);
+            //animator.SetBool("Wave", true);
             isWaving = true;
             waveStop = Time.time + waveTime;
+        }
+
+        if(Input.GetButtonDown("Run")) {
+            if(isWalkingForward) {
+                isRunning = !isRunning;
+            }
+        }
+
+        animator.SetBool("Run", isRunning);
+        animator.SetBool("Wave", isWaving);
+        animator.SetBool("Walk", isWalkingForward);
+
+        if(isRunning) {
+            velocity *= runSpeed;
         }
 
         transform.localPosition += velocity * Time.fixedDeltaTime;
