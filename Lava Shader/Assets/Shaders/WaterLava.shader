@@ -4,6 +4,7 @@
     {
         [Header(Textures)]
         [Space] _MainTex("Texture", 2D) = "black" {}
+        _Color("Color", Color) = (1,0,0,1)
 
         [Space(15)] [Header(Sizing)]
         [Space] _Size("Size", float) = 1
@@ -12,6 +13,7 @@
         [Space(15)] [Header(Trail and flow)]
         [Space] _BendAmount("Bend amount of flow", Range(0,10)) = 5
         [IntRange] _TrailAmount("Amount of drops in trail", Range(0,55)) = 8
+        _Distortion("Distortion", range(-5, 5)) = 1
     }
     SubShader
     {
@@ -47,6 +49,7 @@
             float _BendAmount;
             float _TrailAmount;
             float2 _AspectRatio;
+            float _Distortion;
 
             v2f vert (appdata v)
             {
@@ -70,7 +73,8 @@
 
                 float w = i.uv.y * _BendAmount;
                 float x = sin(3*w)*pow(sin(w), 6)*0.45; // 0.45 is zodat hij niet buiten de box gaat
-                float y = -sin(t + sin(t + sin(t) * 0.5)) * 0.45; // 0.45 is zodat hij niet buiten de box gaat
+                //float y = -sin(t + sin(t + sin(t) * 0.5)) * 0.45; // 0.45 is zodat hij niet buiten de box gaat
+                float y = sin(t) * 0.45;
 
                 float2 dropPos = (gridView-float2(x, y)) / aspect;
                 float drop = smoothstep(.05, .03, length(dropPos));
@@ -87,6 +91,9 @@
                 //offset += drop;
                 //offset += trail;
                 offset += realTrail * 0.5;
+                offset += drop*dropPos;
+                offset *= _Distortion;
+                //offset *= (1,0,0,1);
                 
                 
                 //col += realTrail * 0.5;
