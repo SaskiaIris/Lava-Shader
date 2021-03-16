@@ -2,50 +2,35 @@
 
 Shader "Tutorial/Unlit/Checkerboard" {
     Properties {
-        // we have removed support for texture tiling/offset,
-        // so make them not be displayed in material inspector
-        [NoScaleOffset] _MainTex("Texture", 2D) = "white" {}
+        _Density("Density", Range(2,50)) = 30
     }
+    
     SubShader {
         Pass {
             CGPROGRAM
-            // use "vert" function as the vertex shader
             #pragma vertex vert
-            // use "frag" function as the pixel (fragment) shader
             #pragma fragment frag
+            #include "UnityCG.cginc"
 
-            // vertex shader inputs
-            struct appdata {
-                float4 vertex : POSITION; // vertex position
-                float2 uv : TEXCOORD0; // texture coordinate
-            };
-
-            // vertex shader outputs ("vertex to fragment")
             struct v2f {
-                float2 uv : TEXCOORD0; // texture coordinate
-                float4 vertex : SV_POSITION; // clip space position
+                float2 uv : TEXCOORD0;
+                float4 vertex : SV_POSITION;
             };
 
-            // vertex shader
-            v2f vert(appdata v) {
+            float _Density;
+
+            v2f vert(float4 pos : POSITION, float2 uv : TEXCOORD0) {
                 v2f o;
-                // transform position to clip space
-                // (multiply with model*view*projection matrix)
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                // just pass the texture coordinate
-                o.uv = v.uv;
+                o.vertex = UnityObjectToClipPos(pos);
+                o.uv = uv * _Density;
                 return o;
             }
 
-            // texture we will sample
-            sampler2D _MainTex;
-
-            // pixel shader; returns low precision ("fixed4" type)
-            // color ("SV_Target" semantic)
             fixed4 frag(v2f i) : SV_Target {
-                // sample texture and return it
-                fixed4 col = tex2D(_MainTex, i.uv);
-                return col;
+                float2 c = i.uv;
+                c = floor(c) / 2;
+                float checker = frac(c.x + c.y) * 2;
+                return checker;
             }
             ENDCG
         }

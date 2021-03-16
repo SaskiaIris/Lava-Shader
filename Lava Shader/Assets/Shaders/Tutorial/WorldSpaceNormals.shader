@@ -1,51 +1,37 @@
 ﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
 Shader "Tutorial/Unlit/WorldSpaceNormals" {
-    Properties {
-        // we have removed support for texture tiling/offset,
-        // so make them not be displayed in material inspector
-        [NoScaleOffset] _MainTex("Texture", 2D) = "white" {}
-    }
     SubShader {
         Pass {
             CGPROGRAM
-            // use "vert" function as the vertex shader
             #pragma vertex vert
-            // use "frag" function as the pixel (fragment) shader
             #pragma fragment frag
+            // include file that contains UnityObjectToWorldNormal helper function
+            #include "UnityCG.cginc"
 
-            // vertex shader inputs
-            struct appdata {
-                float4 vertex : POSITION; // vertex position
-                float2 uv : TEXCOORD0; // texture coordinate
-            };
-
-            // vertex shader outputs ("vertex to fragment")
             struct v2f {
-                float2 uv : TEXCOORD0; // texture coordinate
-                float4 vertex : SV_POSITION; // clip space position
+                // we'll output world space normal as one of regular ("texcoord") interpolators
+                half3 worldNormal : TEXCOORD0;
+                float4 pos : SV_POSITION;
             };
 
-            // vertex shader
-            v2f vert(appdata v) {
+            // vertex shader: takes object space normal as input too
+            v2f vert(float4 vertex : POSITION, float3 normal : NORMAL) {
                 v2f o;
-                // transform position to clip space
-                // (multiply with model*view*projection matrix)
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                // just pass the texture coordinate
-                o.uv = v.uv;
+                o.pos = UnityObjectToClipPos(vertex);
+                // UnityCG.cginc file contains function to transform
+                // normal from object to world space, use that
+                o.worldNormal = UnityObjectToWorldNormal(normal);
                 return o;
             }
 
-            // texture we will sample
-            sampler2D _MainTex;
-
-            // pixel shader; returns low precision ("fixed4" type)
-            // color ("SV_Target" semantic)
             fixed4 frag(v2f i) : SV_Target {
-                // sample texture and return it
-                fixed4 col = tex2D(_MainTex, i.uv);
-                return col;
+                fixed4 c = 0;
+                // normal is a 3D vector with xyz components; in -1..1
+                // range. To display it as color, bring the range into 0..1
+                // and put into red, green, blue components
+                c.rgb = i.worldNormal * 0.5 + 0.5;
+                return c;
             }
             ENDCG
         }

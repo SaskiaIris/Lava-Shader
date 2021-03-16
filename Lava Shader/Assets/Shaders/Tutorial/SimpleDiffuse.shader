@@ -2,52 +2,53 @@
 
 Shader "Tutorial/Lit/Simple Diffuse" {
     Properties {
-        // we have removed support for texture tiling/offset,
-        // so make them not be displayed in material inspector
         [NoScaleOffset] _MainTex("Texture", 2D) = "white" {}
     }
+    
     SubShader {
         Pass {
+            // indicate that our pass is the "base" pass in forward
+            // rendering pipeline. It gets ambient and main directional
+            // light data set up; light direction in _WorldSpaceLightPos0
+            // and color in _LightColor0
+            Tags {"LightMode" = "ForwardBase"}
+
             CGPROGRAM
-            // use "vert" function as the vertex shader
             #pragma vertex vert
-            // use "frag" function as the pixel (fragment) shader
             #pragma fragment frag
+            #include "UnityCG.cginc" // for UnityObjectToWorldNormal
+            #include "UnityLightingCommon.cginc" // for _LightColor0
 
-            // vertex shader inputs
-            struct appdata {
-                float4 vertex : POSITION; // vertex position
-                float2 uv : TEXCOORD0; // texture coordinate
-            };
-
-            // vertex shader outputs ("vertex to fragment")
             struct v2f {
-                float2 uv : TEXCOORD0; // texture coordinate
-                float4 vertex : SV_POSITION; // clip space position
+                float2 uv : TEXCOORD0;
+                fixed4 diff : COLOR0; // diffuse lighting color
+                float4 vertex : SV_POSITION;
             };
 
-            // vertex shader
-            v2f vert(appdata v) {
+            v2f vert(appdata_base v) {
                 v2f o;
-                // transform position to clip space
-                // (multiply with model*view*projection matrix)
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                // just pass the texture coordinate
-                o.uv = v.uv;
+                o.uv = v.texcoord;
+                // get vertex normal in world space
+                half3 worldNormal = UnityObjectToWorldNormal(v.normal);
+                // dot product between normal and light direction for
+                // standard diffuse (Lambert) lighting
+                half nl = max(0, dot(worldNormal, _WorldSpaceLightPos0.xyz));
+                // factor in the light color
+                o.diff = nl * _LightColor0;
                 return o;
             }
 
-            // texture we will sample
             sampler2D _MainTex;
 
-            // pixel shader; returns low precision ("fixed4" type)
-            // color ("SV_Target" semantic)
             fixed4 frag(v2f i) : SV_Target {
-                // sample texture and return it
+                // sample texture
                 fixed4 col = tex2D(_MainTex, i.uv);
+                // multiply by lighting
+                col *= i.diff;
                 return col;
             }
-            ENDCG
+        ENDCG
         }
     }
 }

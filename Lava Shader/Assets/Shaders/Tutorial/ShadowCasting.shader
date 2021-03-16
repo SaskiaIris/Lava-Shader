@@ -1,51 +1,59 @@
 ﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
 Shader "Tutorial/Lit/Shadow Casting" {
-    Properties {
-        // we have removed support for texture tiling/offset,
-        // so make them not be displayed in material inspector
-        [NoScaleOffset] _MainTex("Texture", 2D) = "white" {}
-    }
     SubShader {
+        // very simple lighting pass, that only does non-textured ambient
         Pass {
+            Tags {"LightMode" = "ForwardBase"}
             CGPROGRAM
-            // use "vert" function as the vertex shader
             #pragma vertex vert
-            // use "frag" function as the pixel (fragment) shader
             #pragma fragment frag
-
-            // vertex shader inputs
-            struct appdata {
-                float4 vertex : POSITION; // vertex position
-                float2 uv : TEXCOORD0; // texture coordinate
-            };
-
-            // vertex shader outputs ("vertex to fragment")
+            #include "UnityCG.cginc"
             struct v2f {
-                float2 uv : TEXCOORD0; // texture coordinate
-                float4 vertex : SV_POSITION; // clip space position
+                fixed4 diff : COLOR0;
+                float4 vertex : SV_POSITION;
             };
 
-            // vertex shader
-            v2f vert(appdata v) {
+            v2f vert(appdata_base v) {
                 v2f o;
-                // transform position to clip space
-                // (multiply with model*view*projection matrix)
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                // just pass the texture coordinate
-                o.uv = v.uv;
+                half3 worldNormal = UnityObjectToWorldNormal(v.normal);
+                // only evaluate ambient
+                o.diff.rgb = ShadeSH9(half4(worldNormal,1));
+                o.diff.a = 1;
                 return o;
             }
 
-            // texture we will sample
-            sampler2D _MainTex;
-
-            // pixel shader; returns low precision ("fixed4" type)
-            // color ("SV_Target" semantic)
             fixed4 frag(v2f i) : SV_Target {
-                // sample texture and return it
-                fixed4 col = tex2D(_MainTex, i.uv);
-                return col;
+                return i.diff;
+            }
+
+            ENDCG
+        }
+
+        // shadow caster rendering pass, implemented manually
+        // using macros from UnityCG.cginc
+        Pass {
+            Tags {"LightMode" = "ShadowCaster"}
+
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma multi_compile_shadowcaster
+            #include "UnityCG.cginc"
+
+            struct v2f {
+                V2F_SHADOW_CASTER;
+            };
+
+            v2f vert(appdata_base v) {
+                v2f o;
+                TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
+                return o;
+            }
+
+            float4 frag(v2f i) : SV_Target {
+                SHADOW_CASTER_FRAGMENT(i)
             }
             ENDCG
         }

@@ -2,49 +2,47 @@
 
 Shader "Tutorial/Lit/Diffuse With Ambient" {
     Properties {
-        // we have removed support for texture tiling/offset,
-        // so make them not be displayed in material inspector
         [NoScaleOffset] _MainTex("Texture", 2D) = "white" {}
     }
+    
     SubShader {
         Pass {
+            Tags {"LightMode" = "ForwardBase"}
+
             CGPROGRAM
-            // use "vert" function as the vertex shader
             #pragma vertex vert
-            // use "frag" function as the pixel (fragment) shader
             #pragma fragment frag
+            #include "UnityCG.cginc"
+            #include "UnityLightingCommon.cginc"
 
-            // vertex shader inputs
-            struct appdata {
-                float4 vertex : POSITION; // vertex position
-                float2 uv : TEXCOORD0; // texture coordinate
-            };
-
-            // vertex shader outputs ("vertex to fragment")
             struct v2f {
-                float2 uv : TEXCOORD0; // texture coordinate
-                float4 vertex : SV_POSITION; // clip space position
+                float2 uv : TEXCOORD0;
+                fixed4 diff : COLOR0;
+                float4 vertex : SV_POSITION;
             };
 
-            // vertex shader
-            v2f vert(appdata v) {
+            v2f vert(appdata_base v) {
                 v2f o;
-                // transform position to clip space
-                // (multiply with model*view*projection matrix)
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                // just pass the texture coordinate
-                o.uv = v.uv;
+                o.uv = v.texcoord;
+                half3 worldNormal = UnityObjectToWorldNormal(v.normal);
+                half nl = max(0, dot(worldNormal, _WorldSpaceLightPos0.xyz));
+                o.diff = nl * _LightColor0;
+
+                // the only difference from previous shader:
+                // in addition to the diffuse lighting from the main light,
+                // add illumination from ambient or light probes
+                // ShadeSH9 function from UnityCG.cginc evaluates it,
+                // using world space normal
+                o.diff.rgb += ShadeSH9(half4(worldNormal,1));
                 return o;
             }
 
-            // texture we will sample
             sampler2D _MainTex;
 
-            // pixel shader; returns low precision ("fixed4" type)
-            // color ("SV_Target" semantic)
             fixed4 frag(v2f i) : SV_Target {
-                // sample texture and return it
                 fixed4 col = tex2D(_MainTex, i.uv);
+                col *= i.diff;
                 return col;
             }
             ENDCG
