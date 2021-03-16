@@ -7,22 +7,12 @@ Shader "Tutorial/Unlit/SimpleUnlitTexturedShader" {
         [NoScaleOffset] _MainTex("Texture", 2D) = "white" {}
     }
     SubShader {
-        /*Tags {
-            "RenderType"="Opaque"
-        }
-        LOD 100*/
-
         Pass {
             CGPROGRAM
             // use "vert" function as the vertex shader
             #pragma vertex vert
             // use "frag" function as the pixel (fragment) shader
             #pragma fragment frag
-            
-            // make fog work
-            //#pragma multi_compile_fog
-
-            //#include "UnityCG.cginc"
 
             // vertex shader inputs
             struct appdata {
@@ -33,7 +23,6 @@ Shader "Tutorial/Unlit/SimpleUnlitTexturedShader" {
             // vertex shader outputs ("vertex to fragment")
             struct v2f {
                 float2 uv : TEXCOORD0; // texture coordinate
-                //UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION; // clip space position
             };
 
