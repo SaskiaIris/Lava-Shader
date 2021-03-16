@@ -13,7 +13,10 @@
         [Space(15)] [Header(Trail and flow)]
         [Space] _BendAmount("Bend amount of flow", Range(0,10)) = 5
         [IntRange] _TrailAmount("Amount of drops in trail", Range(0,55)) = 8
-        _Distortion("Distortion", range(-5, 5)) = 1
+        _Distortion("Distortion", Range(-5, 5)) = 1
+
+        _Test("Test 1", float) = 3
+        _TestTwee("Test 2", float) = 6
     }
     SubShader
     {
@@ -50,6 +53,8 @@
             float _TrailAmount;
             float2 _AspectRatio;
             float _Distortion;
+            float _Test;
+            float _TestTwee;
 
             v2f vert (appdata v)
             {
@@ -72,7 +77,7 @@
                 float2 gridView = frac(uv)-0.5; //-0.5 zodat het een rondje tekent en niet de helft
 
                 float w = i.uv.y * _BendAmount;
-                float x = sin(3*w)*pow(sin(w), 6)*0.45; // 0.45 is zodat hij niet buiten de box gaat
+                float x = sin(_Test*w)*pow(sin(w), _TestTwee)*0.45; // 0.45 is zodat hij niet buiten de box gaat
                 //float y = -sin(t + sin(t + sin(t) * 0.5)) * 0.45; // 0.45 is zodat hij niet buiten de box gaat
                 float y = sin(t) * 0.45;
 
