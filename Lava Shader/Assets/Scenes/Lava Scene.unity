@@ -484,7 +484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &89500755
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -734,7 +734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &134928916
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1449,7 +1449,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &293399055
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2400,6 +2400,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lava Cube 2
       objectReference: {fileID: 0}
+    - target: {fileID: 518554870147421362, guid: 8693cf811ffd6ad4fa09a683292f7d93,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 518554870147421374, guid: 8693cf811ffd6ad4fa09a683292f7d93,
         type: 3}
       propertyPath: m_RootOrder
@@ -2794,7 +2799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &533426277
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6416,7 +6421,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &1256525669
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8981,7 +8986,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &1960000245
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10132,6 +10137,11 @@ PrefabInstance:
     - target: {fileID: 3528036852757948150, guid: b32a08e72fcffab46910063ced89dee1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3528036852757948151, guid: b32a08e72fcffab46910063ced89dee1,
+        type: 3}
+      propertyPath: scrollSpeed
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
