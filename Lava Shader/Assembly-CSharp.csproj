@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\FlowingLava.cs" />
     <Compile Include="Assets\Scripts\PlayerMotor.cs" />
+    <None Include="Assets\Third Party Assets\Samples\Terrain Tools\0.1.0-preview\Terrain Assets\ThirdPartyNotices.txt" />
     <None Include="Assets\Shaders\Tutorial\SkyReflectionPerPixel.shader" />
     <None Include="Assets\Shaders\Tutorial\DiffuseWithAmbient.shader" />
     <None Include="Assets\Shaders\Tutorial\SimpleUnlitTexturedShader.shader" />
@@ -679,6 +680,12 @@
     </Reference>
     <Reference Include="com.unity.multiplayer-hlapi.Runtime">
       <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TerrainTools">
+      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.TerrainTools.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TerrainTools.Editor">
+      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.TerrainTools.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>
