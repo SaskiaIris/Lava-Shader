@@ -618,6 +618,9 @@
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.TerrainTools">
+      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.TerrainTools.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Shaders">
       <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
     </Reference>
@@ -675,17 +678,14 @@
     <Reference Include="Unity.TextMeshPro">
       <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.TerrainTools.Editor">
+      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.TerrainTools.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.multiplayer-hlapi.Runtime">
       <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TerrainTools">
-      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.TerrainTools.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TerrainTools.Editor">
-      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.TerrainTools.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>
