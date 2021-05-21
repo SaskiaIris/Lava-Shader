@@ -5,6 +5,10 @@
         _Color ("Color", Color) = (1,1,1,1)
 
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
+        _TestTex ("Test Texture", 2D) = "white" {}
+
+        [MaterialToggle] _TestToggle("Gebruik test texture", Float) = 0
+
         [NoScaleOffset] _FlowMap("Flow (RG)", 2D) = "black" {}
 
         _ScrollXSpeed("X", Range(0,10)) = 2
@@ -28,17 +32,21 @@
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
 
-        sampler2D _MainTex, _FlowMap;
+        sampler2D _MainTex, _TestTex, _FlowMap, _UseTex;
 
         struct Input
         {
             float2 uv_MainTex;
+            float2 uv_TestTex;
         };
+        fixed _TestToggle;
+
         fixed _ScrollXSpeed;
         fixed _ScrollYSpeed;
         half _Glossiness;
         half _Metallic;
         fixed4 _Color;
+
 
         // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
         // See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
@@ -49,19 +57,38 @@
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            fixed2 scrolledUV = IN.uv_MainTex;
-            float2 flowVector = tex2D(_FlowMap, IN.uv_MainTex).rg * 2 - 1;
+            float2 useUV;
+            
+            if (_TestToggle == 1) {
+                useUV = IN.uv_TestTex;
+            }
+            else {
+                useUV = IN.uv_MainTex;
+            }
+            
+            fixed2 scrolledUV = useUV;
+            float2 flowVector = tex2D(_FlowMap, useUV).rg * 2 - 1;
+            
             scrolledUV *= flowVector;
 
             fixed xScrollValue = _ScrollXSpeed * _Time;
             fixed yScrollValue = _ScrollYSpeed * _Time;
 
             scrolledUV += fixed2(xScrollValue, yScrollValue);
-            half4 c = tex2D(_MainTex, scrolledUV);
 
             // Albedo comes from a texture tinted by color
             //fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
-            o.Albedo = tex2D(_MainTex, IN.uv_MainTex).rgb;
+
+            half4 c;
+            if (_TestToggle == 1) {
+                c = tex2D(_TestTex, scrolledUV);
+                o.Albedo = tex2D(_TestTex, useUV).rgb;
+            }
+            else {
+                c = tex2D(_MainTex, scrolledUV);
+                o.Albedo = tex2D(_MainTex, useUV).rgb;
+            }
+                        
             o.Albedo += c.rgb;
             // Metallic and smoothness come from slider variables
             o.Metallic = _Metallic;
