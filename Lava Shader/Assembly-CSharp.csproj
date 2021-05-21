@@ -47,7 +47,7 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Unity/VSTU</UnityProjectGenerator>
-    <UnityProjectGeneratorVersion>4.8.2.0</UnityProjectGeneratorVersion>
+    <UnityProjectGeneratorVersion>4.9.1.0</UnityProjectGeneratorVersion>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>2019.4.18f1</UnityVersion>
@@ -82,6 +82,7 @@
     <None Include="Assets\Third Party Assets\PolygonCity\Change_Log.txt" />
     <None Include="Assets\Shaders\Tutorial\Triplanar.shader" />
     <None Include="Assets\Shaders\Tutorial\Fog.shader" />
+    <None Include="Assets\Shaders\LavaNew.shader" />
     <None Include="Assets\Shaders\Tutorial\DiffuseWithShadows.shader" />
     <Reference Include="UnityEngine">
       <HintPath>D:/Program Files/2019.4.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -611,14 +612,35 @@
     <Reference Include="System.Xml.Serialization">
       <HintPath>D:/Program Files/2019.4.18f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
+      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
+      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
+    </Reference>
+    <Reference Include="com.unity.multiplayer-hlapi.Editor">
+      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Editor">
+      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
+      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Universal.Editor">
+      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
@@ -629,32 +651,20 @@
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.UI">
-      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="com.unity.multiplayer-hlapi.Editor">
-      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
+    <Reference Include="Unity.Postprocessing.Editor">
+      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.multiplayer-weaver.Editor">
       <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="com.unity.multiplayer-hlapi.Runtime">
-      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Editor">
-      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Runtime">
-      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+    <Reference Include="Unity.Rider.Editor">
+      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
       <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Postprocessing.Runtime">
+      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
@@ -662,23 +672,14 @@
     <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
       <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
-      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Shaders">
-      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Runtime">
-      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Universal.Editor">
-      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Postprocessing.Editor">
-      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Postprocessing.Runtime">
-      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+    <Reference Include="com.unity.multiplayer-hlapi.Runtime">
+      <HintPath>D:/Gebruikers/Iris Oostra/Documents/GitHub/lava-shader/Lava Shader/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>
