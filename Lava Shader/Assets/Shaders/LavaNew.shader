@@ -3,11 +3,18 @@
     Properties
     {
         _Color ("Color", Color) = (1,1,1,1)
+
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
-        _Glossiness ("Smoothness", Range(0,1)) = 0.5
-        _Metallic ("Metallic", Range(0,1)) = 0.0
+        [NoScaleOffset] _FlowMap("Flow (RG)", 2D) = "black" {}
+
         _ScrollXSpeed("X", Range(0,10)) = 2
         _ScrollYSpeed("Y", Range(0,10)) = 3
+
+        _Glossiness ("Smoothness", Range(0,1)) = 0.5
+        _Metallic ("Metallic", Range(0,1)) = 0.0
+        
+
+        
     }
     SubShader
     {
@@ -21,7 +28,7 @@
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
 
-        sampler2D _MainTex;
+        sampler2D _MainTex, _FlowMap;
 
         struct Input
         {
@@ -43,6 +50,8 @@
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
             fixed2 scrolledUV = IN.uv_MainTex;
+            float2 flowVector = tex2D(_FlowMap, IN.uv_MainTex).rg * 2 - 1;
+            scrolledUV *= flowVector;
 
             fixed xScrollValue = _ScrollXSpeed * _Time;
             fixed yScrollValue = _ScrollYSpeed * _Time;
