@@ -75,6 +75,7 @@
     <None Include="Assets\Shaders\Tutorial\SimpleDiffuse.shader" />
     <None Include="Assets\Shaders\Tutorial\SkyReflection.shader" />
     <None Include="Assets\Shaders\Tutorial\SingleColor.shader" />
+    <None Include="Assets\Shaders\LavaNew.shader" />
     <None Include="Assets\Shaders\WaterLava.shader" />
     <None Include="Assets\Shaders\ToonShader.shader" />
     <None Include="Assets\Shaders\Tutorial\ShadowCasting.shader" />
