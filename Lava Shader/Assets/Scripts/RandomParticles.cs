@@ -30,6 +30,10 @@ public class RandomParticles : MonoBehaviour {
     private void SpawnParticles()
 	{
         DestroyTimedOutParticles();
+        int randomItem = 0;
+        GameObject toSpawn;
+        MeshCollider lavaMeshCollider = lavaField.GetComponent<MeshCollider>();
+
 	}
 
     private void DestroyTimedOutParticles()
