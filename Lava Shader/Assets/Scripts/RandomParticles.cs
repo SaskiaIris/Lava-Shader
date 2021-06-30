@@ -9,13 +9,16 @@ public class RandomParticles : MonoBehaviour {
     [SerializeField]
     private GameObject particlePrefab;
 
-    public Transform[] SpawnPoints;
+    [SerializeField]
+    private List<GameObject> spawnPool;
+
+    [SerializeField]
+    private GameObject lavaField;
 
     // Start is called before the first frame update
     void Start()
     {
-        Transform selectedSpawnPoint = SpawnPoints[(int)Random.Range(0, SpawnPoints.Count - 1)];
-        Instantiate(particlePrefab, selectedSpawnPoint.position, selectedSpawnPoint.rotation);
+        SpawnParticles();
     }
 
     // Update is called once per frame
@@ -23,4 +26,14 @@ public class RandomParticles : MonoBehaviour {
     {
         
     }
+
+    private void SpawnParticles()
+	{
+        DestroyTimedOutParticles();
+	}
+
+    private void DestroyTimedOutParticles()
+	{
+
+	}
 }

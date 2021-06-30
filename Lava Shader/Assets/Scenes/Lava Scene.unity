@@ -1717,11 +1717,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 369050891}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c872b7365837e54b9ff87106016ff47, type: 3}
+  m_Script: {fileID: 11500000, guid: dc15fef12e2139e459b02898ede45cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particleRate: 1
   particlePrefab: {fileID: 6486342859680733257, guid: c3f6a376b1b0915499eb12831ecc66d9,
     type: 3}
+  spawnPool: []
+  lavaField: {fileID: 369050891}
 --- !u!1001 &376774761
 PrefabInstance:
   m_ObjectHideFlags: 0
