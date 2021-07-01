@@ -88,12 +88,16 @@ public class RandomParticles : MonoBehaviour {
 
     private void DestroyTimedOutParticles()	{
         currentParticleSystems = GameObject.FindGameObjectsWithTag(spawnTag);
+
         int randomizedMaxParticles = Random.Range(maxParticlesOnScreen - 3, maxParticlesOnScreen);
         Debug.Log("Randomized max particles: " + randomizedMaxParticles);
+
+        //TODO: destroy random with intervals not all at once
         foreach(GameObject o in currentParticleSystems) {
-            if(o.GetComponent<ParticleSystem>().isPlaying && currentParticleSystems.Length <= randomizedMaxParticles) {
+            if(/*o.GetComponent<ParticleSystem>().isPlaying &&*/ currentParticleSystems.Length <= randomizedMaxParticles) {
                 //Do nothing
-            } else if(o.GetComponent<ParticleSystem>().isPlaying && currentParticleSystems.Length <= randomizedMaxParticles) {
+                Debug.Log("TEST");
+            } else if(/*o.GetComponent<ParticleSystem>().isPlaying &&*/ currentParticleSystems.Length > randomizedMaxParticles) {
                 FadeOut(o);
             } else {
                 Destroy(o);
