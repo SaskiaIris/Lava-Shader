@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RandomParticles : MonoBehaviour {
+    [Header ("Particle amount per spawn, min and max")]
     [SerializeField]
     private int minParticlesToSpawn = 1;
 
     [SerializeField]
     private int maxParticlesToSpawn = 5;
 
+    [Header ("The tag that the particle systems have")]
     [SerializeField]
     private string spawnTag = "Spawnable";
 
     [SerializeField]
     private int maxParticlesOnScreen = 10;
 
+    [Header ("Time between spawns")]
     [SerializeField]
     private float spawnIntervalMin = 2.0f;
 
@@ -27,6 +30,7 @@ public class RandomParticles : MonoBehaviour {
     [SerializeField]
     private GameObject lavaField;
 
+    //All particle systems/gameobjects currently active in the scene
     private GameObject[] currentParticleSystems;
 
     // Start is called before the first frame update
