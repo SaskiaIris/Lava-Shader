@@ -62,7 +62,7 @@ public class RandomParticles : MonoBehaviour {
         float spawnInterval;
 
         for(; ; ) {
-            DestroyTimedOutParticles();
+            
 
             if(Random.Range(0, 5) == 0) {
                 particleAmountToSpawn = 0;
@@ -71,6 +71,8 @@ public class RandomParticles : MonoBehaviour {
             }
 
             for(int i = 0; i < particleAmountToSpawn; i++) {
+                DestroyTimedOutParticles();
+
                 toSpawn = particlePrefab;
                 screenX = Random.Range(lavaMeshCollider.bounds.min.x, lavaMeshCollider.bounds.max.x);
                 screenY = Random.Range(lavaMeshCollider.bounds.min.y, lavaMeshCollider.bounds.max.y);
@@ -93,21 +95,23 @@ public class RandomParticles : MonoBehaviour {
         Debug.Log("Randomized max particles: " + randomizedMaxParticles);
 
         //TODO: destroy random with intervals not all at once
-        foreach(GameObject o in currentParticleSystems) {
-            if(/*o.GetComponent<ParticleSystem>().isPlaying &&*/ currentParticleSystems.Length <= randomizedMaxParticles) {
+        foreach(GameObject particleObject in currentParticleSystems) {
+            if(currentParticleSystems.Length <= randomizedMaxParticles) {
                 //Do nothing
                 Debug.Log("TEST");
-            } else if(/*o.GetComponent<ParticleSystem>().isPlaying &&*/ currentParticleSystems.Length > randomizedMaxParticles) {
-                FadeOut(o);
-            } else {
-                Destroy(o);
+            } /*else if(currentParticleSystems.Length > randomizedMaxParticles) {
+                
+            }*/ else {
+                //Destroy(particleObject);
+                FadeOut(particleObject, 10f);
             }
 		}
 	}
 
-	private void FadeOut(GameObject particleToFadeOut) {
-        //TODO: make a fade-out via coroutine
-        Destroy(particleToFadeOut);
+	private void FadeOut(GameObject particleToFadeOut, float fadeSpeed) {
+        ParticleSystem particleSystem = particleToFadeOut.transform.GetComponent<ParticleSystem>();
+        particleSystem.Stop();
+        Destroy(particleToFadeOut, fadeSpeed);
 	}
 
 }
