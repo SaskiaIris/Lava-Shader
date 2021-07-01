@@ -8,22 +8,24 @@ public class RandomParticles : MonoBehaviour {
     private int minParticlesToSpawn = 1;
 
     [SerializeField]
-    private int maxParticlesToSpawn = 5;
+    private int maxParticlesToSpawn = 3;
 
     [Header ("The tag that the particle systems have")]
     [SerializeField]
     private string spawnTag = "Spawnable";
 
-    [SerializeField]
+    [Header ("Maximum amount of particles on screen")]
+    [SerializeField, Tooltip("Gets automatically set to the length of the lava field, only numbers lower than that length get accepted")] //TODO: explain why
     private int maxParticlesOnScreen = 10;
 
-    [Header ("Time between spawns")]
+    [Header ("Time between spawns, min and max")]
     [SerializeField]
     private float spawnIntervalMin = 2.0f;
 
     [SerializeField]
     private float spawnIntervalMax = 8.0f;
 
+    [Header ("Prefabs")]
     [SerializeField]
     private GameObject particlePrefab;
 
@@ -76,8 +78,6 @@ public class RandomParticles : MonoBehaviour {
                 smokePosition = new Vector3(screenX, screenY, screenZ);
 
                 Instantiate(toSpawn, smokePosition, lavaField.transform.rotation);
-
-                yield return new WaitForSeconds(Random.Range(0.0f, 0.5f));
             }
 
             spawnInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
@@ -88,11 +88,12 @@ public class RandomParticles : MonoBehaviour {
 
     private void DestroyTimedOutParticles()	{
         currentParticleSystems = GameObject.FindGameObjectsWithTag(spawnTag);
-        int randomizeMaxParticles = Random.Range(maxParticlesOnScreen - 3, maxParticlesOnScreen);
+        int randomizedMaxParticles = Random.Range(maxParticlesOnScreen - 3, maxParticlesOnScreen);
+        Debug.Log("Randomized max particles: " + randomizedMaxParticles);
         foreach(GameObject o in currentParticleSystems) {
-            if(o.GetComponent<ParticleSystem>().isPlaying && currentParticleSystems.Length <= randomizeMaxParticles) {
+            if(o.GetComponent<ParticleSystem>().isPlaying && currentParticleSystems.Length <= randomizedMaxParticles) {
                 //Do nothing
-            } else if(o.GetComponent<ParticleSystem>().isPlaying && currentParticleSystems.Length <= randomizeMaxParticles) {
+            } else if(o.GetComponent<ParticleSystem>().isPlaying && currentParticleSystems.Length <= randomizedMaxParticles) {
                 FadeOut(o);
             } else {
                 Destroy(o);
@@ -101,7 +102,7 @@ public class RandomParticles : MonoBehaviour {
 	}
 
 	private void FadeOut(GameObject particleToFadeOut) {
-        
+        //TODO: make a fade-out via coroutine
         Destroy(particleToFadeOut);
 	}
 
