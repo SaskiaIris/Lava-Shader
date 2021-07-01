@@ -3,34 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RandomParticles : MonoBehaviour {
-    [Header ("Particle amount per spawn, min and max")]
+    [Header("Prefabs")]
     [SerializeField]
-    private int minParticlesToSpawn = 1;
+    private GameObject particlePrefab;
 
     [SerializeField]
-    private int maxParticlesToSpawn = 3;
+    private GameObject lavaField;
+    
 
-    [Header ("The tag that the particle systems have")]
+    [Header("The tag to find the Particle System's GameObjects")]
     [SerializeField]
     private string spawnTag = "Spawnable";
 
-    [Header ("Maximum amount of particles on screen")]
-    [SerializeField, Tooltip("Gets automatically set to the length of the lava field, only numbers lower than that length get accepted")] //TODO: explain why
-    private int maxParticlesOnScreen = 10;
 
-    [Header ("Time between spawns, min and max")]
+
+    [Header("Minimum time to keep a Particle System alive")]
+    [SerializeField, Tooltip("Also used for the waiting time before destroy after fading out")]
+    private float minimumEmittingTime = 2.0f;
+
+
+
+    [Header("Time between spawns, min and max")]
     [SerializeField]
     private float spawnIntervalMin = 2.0f;
 
     [SerializeField]
     private float spawnIntervalMax = 8.0f;
 
-    [Header ("Prefabs")]
+
+    [Header ("Smoke clouds per spawn, min and max")]
     [SerializeField]
-    private GameObject particlePrefab;
+    private int minParticlesToSpawn = 1;
 
     [SerializeField]
-    private GameObject lavaField;
+    private int maxParticlesToSpawn = 3;
+
+
+    [Header("Maximum amount of smoke clouds on screen")]
+    [SerializeField, Tooltip("Gets automatically set to the length of the lava field, only numbers lower than that length get accepted")] //TODO: explain why
+    private int maxParticlesOnScreen = 10;    
 
     //All particle systems/gameobjects currently active in the scene
     private GameObject[] currentParticleSystems;
@@ -62,8 +73,6 @@ public class RandomParticles : MonoBehaviour {
         float spawnInterval;
 
         for(; ; ) {
-            
-
             if(Random.Range(0, 5) == 0) {
                 particleAmountToSpawn = 0;
             } else {
@@ -97,13 +106,18 @@ public class RandomParticles : MonoBehaviour {
         //TODO: destroy random with intervals not all at once
         foreach(GameObject particleObject in currentParticleSystems) {
             if(currentParticleSystems.Length <= randomizedMaxParticles) {
-                //Do nothing
-                Debug.Log("TEST");
-            } /*else if(currentParticleSystems.Length > randomizedMaxParticles) {
-                
-            }*/ else {
-                //Destroy(particleObject);
-                FadeOut(particleObject, 10f);
+                //Do nothing maybe
+
+                //TODO: randomly fading out some of the particles
+
+                /*Debug.Log("TEST" + particleObject.GetComponent<ParticleSystem>().main.duration);
+                if(particleObject.GetComponent<ParticleSystem>().main.duration > minimumEmittingTime) {
+                    if(Random.Range(0, 4) == 4) {
+                        FadeOut(particleObject, minimumEmittingTime);
+                    }
+                }*/
+            } else {
+                FadeOut(particleObject, minimumEmittingTime);
             }
 		}
 	}
@@ -113,5 +127,4 @@ public class RandomParticles : MonoBehaviour {
         particleSystem.Stop();
         Destroy(particleToFadeOut, fadeSpeed);
 	}
-
 }

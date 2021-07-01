@@ -1720,15 +1720,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc15fef12e2139e459b02898ede45cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minParticlesToSpawn: 1
-  maxParticlesToSpawn: 3
-  spawnTag: Spawnable
-  maxParticlesOnScreen: 10
-  spawnIntervalMin: 2
-  spawnIntervalMax: 4
   particlePrefab: {fileID: 6486342859680733257, guid: c3f6a376b1b0915499eb12831ecc66d9,
     type: 3}
   lavaField: {fileID: 369050891}
+  spawnTag: Spawnable
+  minimumEmittingTime: 2
+  spawnIntervalMin: 2
+  spawnIntervalMax: 4
+  minParticlesToSpawn: 1
+  maxParticlesToSpawn: 3
+  maxParticlesOnScreen: 10
 --- !u!1001 &376774761
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9603,7 +9604,7 @@ PrefabInstance:
     - target: {fileID: 6381159517028123812, guid: 18d79206fcf2c2b41bd179ee59448394,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.57
+      value: 4.86
       objectReference: {fileID: 0}
     - target: {fileID: 6381159517028123812, guid: 18d79206fcf2c2b41bd179ee59448394,
         type: 3}
@@ -9613,7 +9614,7 @@ PrefabInstance:
     - target: {fileID: 6381159517028123812, guid: 18d79206fcf2c2b41bd179ee59448394,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 6381159517028123812, guid: 18d79206fcf2c2b41bd179ee59448394,
         type: 3}
