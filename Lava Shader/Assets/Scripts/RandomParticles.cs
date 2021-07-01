@@ -40,7 +40,7 @@ public class RandomParticles : MonoBehaviour {
 
 
     [Header("Maximum amount of smoke clouds on screen")]
-    [SerializeField, Tooltip("Gets automatically set to the length of the lava field, only numbers lower than that length get accepted")] //TODO: explain why
+    [SerializeField, Tooltip("Gets automatically set to the length of the lava field, only numbers lower than that length get accepted")] //TODO: explain why// dit netter maken
     private int maxParticlesOnScreen = 10;    
 
     //All particle systems/gameobjects currently active in the scene
@@ -49,12 +49,11 @@ public class RandomParticles : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         StartCoroutine("SpawnParticles");
-
-        if(maxParticlesOnScreen > lavaField.transform.localScale.x) {
+        /*if(maxParticlesOnScreen > lavaField.transform.localScale.x) {
             maxParticlesOnScreen = (int) lavaField.transform.localScale.x;
         }
 
-        Debug.Log("Max particles: " + maxParticlesOnScreen);
+        Debug.Log("Max particles: " + maxParticlesOnScreen);*/
     }
 
     // Update is called once per frame
@@ -80,7 +79,7 @@ public class RandomParticles : MonoBehaviour {
             }
 
             for(int i = 0; i < particleAmountToSpawn; i++) {
-                DestroyTimedOutParticles();
+                StartCoroutine(DestroyTimedOutParticles());
 
                 toSpawn = particlePrefab;
                 screenX = Random.Range(lavaMeshCollider.bounds.min.x, lavaMeshCollider.bounds.max.x);
@@ -89,6 +88,7 @@ public class RandomParticles : MonoBehaviour {
                 smokePosition = new Vector3(screenX, screenY, screenZ);
 
                 Instantiate(toSpawn, smokePosition, lavaField.transform.rotation);
+                Debug.Log("New smoke cloud spawned :)");
             }
 
             spawnInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
@@ -97,34 +97,45 @@ public class RandomParticles : MonoBehaviour {
         }
     }
 
-    private void DestroyTimedOutParticles()	{
+    IEnumerator DestroyTimedOutParticles()	{
         currentParticleSystems = GameObject.FindGameObjectsWithTag(spawnTag);
 
-        int randomizedMaxParticles = Random.Range(maxParticlesOnScreen - 3, maxParticlesOnScreen);
-        Debug.Log("Randomized max particles: " + randomizedMaxParticles);
+        /*int randomizedMaxParticles = Random.Range(maxParticlesOnScreen - 3, maxParticlesOnScreen);
+        Debug.Log("Randomized max particles: " + randomizedMaxParticles);*/
 
         //TODO: destroy random with intervals not all at once
         foreach(GameObject particleObject in currentParticleSystems) {
-            if(currentParticleSystems.Length <= randomizedMaxParticles) {
+            if(currentParticleSystems.Length <= maxParticlesOnScreen / 2) {
                 //Do nothing maybe
-
-                //TODO: randomly fading out some of the particles
-
-                /*Debug.Log("TEST" + particleObject.GetComponent<ParticleSystem>().main.duration);
-                if(particleObject.GetComponent<ParticleSystem>().main.duration > minimumEmittingTime) {
-                    if(Random.Range(0, 4) == 4) {
-                        FadeOut(particleObject, minimumEmittingTime);
-                    }
-                }*/
-            } else {
+            } else if(currentParticleSystems.Length >= maxParticlesOnScreen) {
                 FadeOut(particleObject, minimumEmittingTime);
+                yield return new WaitForSeconds(Random.Range(0.5f, 2.0f));
+            } else {
+                if(randomYesOrNo() == true) {
+                    FadeOut(particleObject, minimumEmittingTime);
+                    yield return new WaitForSeconds(Random.Range(0.5f, 2.0f));
+                }
             }
 		}
 	}
 
 	private void FadeOut(GameObject particleToFadeOut, float fadeSpeed) {
-        ParticleSystem particleSystem = particleToFadeOut.transform.GetComponent<ParticleSystem>();
-        particleSystem.Stop();
-        Destroy(particleToFadeOut, fadeSpeed);
+        if(particleToFadeOut != null) {
+            ParticleSystem particleSystem = particleToFadeOut.transform.GetComponent<ParticleSystem>();
+            particleSystem.Stop();
+            Destroy(particleToFadeOut, fadeSpeed);
+            Debug.Log("Smoke cloud destroyed :(");
+        }
 	}
+
+    private bool randomYesOrNo() {
+        int randomValue;
+        randomValue = Random.Range(0, 1);
+
+        if(randomValue == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

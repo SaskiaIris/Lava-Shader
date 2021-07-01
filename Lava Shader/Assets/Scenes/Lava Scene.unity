@@ -1729,7 +1729,7 @@ MonoBehaviour:
   spawnIntervalMax: 4
   minParticlesToSpawn: 1
   maxParticlesToSpawn: 3
-  maxParticlesOnScreen: 10
+  maxParticlesOnScreen: 15
 --- !u!1001 &376774761
 PrefabInstance:
   m_ObjectHideFlags: 0
