@@ -16,9 +16,6 @@
 
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
-        
-
-        
     }
     SubShader
     {
