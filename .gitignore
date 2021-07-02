@@ -1,9 +1,15 @@
-[Ll]ibrary/
-[Tt]emp/
-[Oo]bj/
-[Bb]uild/
-[Bb]uilds/
-Assets/AssetStoreTools*
+**/[Ll]ibrary/
+**/[Tt]emp/ 
+**/[Oo]bj/ 
+**/[Bb]uild/ 
+**/[Bb]uilds/ 
+**/Assets/AssetStoreTools*
+
+!**/Assets/**/[Ll]ibrary/
+!**/Assets/**/[Tt]emp/ 
+!**/Assets/**/[Oo]bj/ 
+!**/Assets/**/[Bb]uild/ 
+!**/Assets/**/[Bb]uilds/
 
 # Visual Studio cache directory
 .vs/
@@ -38,4 +44,3 @@ sysinfo.txt
 
 # Crashlytics generated file
 Assets/StreamingAssets/crashlytics-build.properties
-
