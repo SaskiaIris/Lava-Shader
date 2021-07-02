@@ -1729,7 +1729,7 @@ MonoBehaviour:
   spawnIntervalMax: 4
   minParticlesToSpawn: 1
   maxParticlesToSpawn: 3
-  maxParticlesOnScreen: 15
+  maxParticlesOnScreen: 5
 --- !u!1001 &376774761
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10073,12 +10073,12 @@ PrefabInstance:
     - target: {fileID: 7396391064159848934, guid: efa4d39a0fbe648488582f84beca22f9,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7396391064159848934, guid: efa4d39a0fbe648488582f84beca22f9,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7396391064159848934, guid: efa4d39a0fbe648488582f84beca22f9,
         type: 3}
