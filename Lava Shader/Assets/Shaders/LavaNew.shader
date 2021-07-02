@@ -67,7 +67,7 @@
             }
             
             fixed2 scrolledUV = useUV;
-            float2 flowVector = tex2D(_FlowMap, useUV).rg * 2 - 1;
+            float2 flowVector = tex2D(_FlowMap, useUV).rg * 2 - 1; //Verandert de range naar -1, 1
             
             scrolledUV *= flowVector;
 
