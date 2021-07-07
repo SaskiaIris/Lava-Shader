@@ -5,7 +5,6 @@
         _Color("Color", Color) = (1,1,1,1)
 
         _MainTex("Albedo (RGB)", 2D) = "white" {}
-        //_TestTex("Test Texture", 2D) = "white" {}
 
         _HeightMap("Height map", 2D) = "white" {}
 
@@ -36,9 +35,7 @@
         struct Input
         {
             float2 uv_MainTex;
-            //float2 uv_TestTex;
         };
-        //fixed _TestToggle;
 
         fixed _ScrollXSpeed;
         fixed _ScrollYSpeed;
@@ -56,16 +53,7 @@
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            float2 useUV;
-            
-            if (_TestToggle == 1) {
-                useUV = IN.uv_TestTex;
-            }
-            else {
-                useUV = IN.uv_MainTex;
-            }
-            
-            //heightUV = IN.uv_HeightTex;
+            float2 useUV = IN.uv_MainTex;
 
             fixed2 scrolledUV = useUV;
             float2 flowVector = tex2D(_FlowMap, useUV).rg * 2 - 1; //Verandert de range naar -1, 1
@@ -80,22 +68,15 @@
             // Albedo comes from a texture tinted by color
             //fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
 
-            half4 c;
-            /*if (_TestToggle == 1) {
-                c = tex2D(_TestTex, scrolledUV);
-                o.Albedo = tex2D(_TestTex, useUV).rgb;
-            }*/
-            //else {
-                c = tex2D(_MainTex, scrolledUV);
-                o.Albedo = tex2D(_MainTex, useUV).rgb;
-            //}
+            half4 c = tex2D(_MainTex, scrolledUV);
+            o.Albedo = tex2D(_MainTex, useUV).rgb;
 
             c *= tex2D(_HeightMap, scrolledUV);
                         
             o.Albedo += c.rgb;
             // Metallic and smoothness come from slider variables
-            o.Metallic = _Metallic;
-            o.Smoothness = _Glossiness;
+            /*o.Metallic = _Metallic;
+            o.Smoothness = _Glossiness;*/
             o.Alpha = c.a;
         }
         ENDCG
