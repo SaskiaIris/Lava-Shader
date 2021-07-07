@@ -40,14 +40,26 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FlowMap:
-        m_Texture: {fileID: 2800000, guid: e157860c7fb0bae4196eefe189cd567a, type: 3}
+        m_Texture: {fileID: 2800000, guid: fbb8f5e7b65a9794bbda814402553c64, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HeightMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HeightTex:
+        m_Texture: {fileID: 2800000, guid: b5beeff6adf2d5d4bb43cab8a0ff08e7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 2d4b34e160bd7ba42b02864f7099b990, type: 3}
+        m_Texture: {fileID: 2800000, guid: 98eb953eae72ecf4fbf0832e183f7041, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -81,6 +93,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _TestToggle: 0
+    - _Tiling: 2
     - _UVSec: 0
     - _ZWrite: 1
     - _isToggled: 0
