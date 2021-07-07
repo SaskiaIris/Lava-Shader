@@ -2,10 +2,12 @@
 {
     Properties
     {
-        _Color ("Color", Color) = (1,1,1,1)
+        _Color("Color", Color) = (1,1,1,1)
 
-        _MainTex ("Albedo (RGB)", 2D) = "white" {}
-        _TestTex ("Test Texture", 2D) = "white" {}
+        _MainTex("Albedo (RGB)", 2D) = "white" {}
+        _TestTex("Test Texture", 2D) = "white" {}
+
+        _HeightMap("Height map", 2D) = "white" {}
 
         [MaterialToggle] _TestToggle("Gebruik test texture", Float) = 0
 
@@ -14,8 +16,8 @@
         _ScrollXSpeed("X", Range(0,10)) = 2
         _ScrollYSpeed("Y", Range(0,10)) = 3
 
-        _Glossiness ("Smoothness", Range(0,1)) = 0.5
-        _Metallic ("Metallic", Range(0,1)) = 0.0
+        _Glossiness("Smoothness", Range(0,1)) = 0.5
+        _Metallic("Metallic", Range(0,1)) = 0.0
     }
     SubShader
     {
@@ -29,12 +31,13 @@
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
 
-        sampler2D _MainTex, _TestTex, _FlowMap, _UseTex;
+        sampler2D _MainTex, _TestTex, _HeightMap, _FlowMap, _UseTex;
 
         struct Input
         {
             float2 uv_MainTex;
             float2 uv_TestTex;
+            //float2 uv_HeightTex
         };
         fixed _TestToggle;
 
@@ -63,6 +66,8 @@
                 useUV = IN.uv_MainTex;
             }
             
+            //heightUV = IN.uv_HeightTex;
+
             fixed2 scrolledUV = useUV;
             float2 flowVector = tex2D(_FlowMap, useUV).rg * 2 - 1; //Verandert de range naar -1, 1
             
@@ -85,6 +90,8 @@
                 c = tex2D(_MainTex, scrolledUV);
                 o.Albedo = tex2D(_MainTex, useUV).rgb;
             }
+
+            c *= tex2D(_HeightMap, scrolledUV);
                         
             o.Albedo += c.rgb;
             // Metallic and smoothness come from slider variables
