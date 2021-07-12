@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FlowMap:
-        m_Texture: {fileID: 2800000, guid: 6e22ff24cf6d05e469dd96669d23177f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8e293f8752ffaa74e847851389879568, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightMap:
@@ -76,7 +76,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _StoneTex:
-        m_Texture: {fileID: 2800000, guid: 3c46f953271bcf64aa83ff85a9682eaf, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8cdc69779ec0b5645962d0db817fe8cb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TestTex:
@@ -95,8 +95,8 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ScrollXSpeed: 2
-    - _ScrollYSpeed: 3
+    - _ScrollXSpeed: 2.52
+    - _ScrollYSpeed: 3.88
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
