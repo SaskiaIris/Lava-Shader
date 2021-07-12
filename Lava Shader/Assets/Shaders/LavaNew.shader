@@ -69,15 +69,15 @@
             useUV *= _Tiling;
             scrolledUV *= _Tiling;
 
-            o.Albedo = tex2D(_MainTex, useUV).rgb * tex2D(_StoneTex, useUV).rgb;
+            o.Albedo = /*tex2D(_MainTex, useUV).rgb **/ tex2D(_StoneTex, useUV).rgb;
 
-            half4 c = tex2D(_MainTex, scrolledUV) * tex2D(_StoneTex, scrolledUV);
+            half3 c = tex2D(_MainTex, scrolledUV).rgb * 1.5 /** tex2D(_StoneTex, scrolledUV).rgb*/;
                         
-            o.Albedo += c.rgb;
+            o.Albedo *= c.rgb;
             // Metallic and smoothness come from slider variables
             /*o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;*/
-            o.Alpha = c.a;
+            //o.Alpha = c.a;
         }
         ENDCG
     }
