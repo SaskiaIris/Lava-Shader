@@ -8,28 +8,30 @@
         _StoneTex("Stone Texture", 2D) = "white" {}
 
         [NoScaleOffset] _FlowMap("Flow (RG)", 2D) = "black" {}
-        [NoScaleOffset] _NormalMap("Normals", 2D) = "bump" {}
+        [NoScaleOffset] _AlphaLayer("Alpha Layer", 2D) = "white" {}
+        //[NoScaleOffset] _NormalMap("Normals", 2D) = "bump" {}
 
-        _ScrollXSpeed("X", Range(0,10)) = 2
-        _ScrollYSpeed("Y", Range(0,10)) = 3
+        _ScrollXSpeed("X Speed", Range(0,10)) = 2
+        _ScrollYSpeed("Y Speed", Range(0,10)) = 3
 
         //_Glossiness("Smoothness", Range(0,1)) = 0.5
         //_Metallic("Metallic", Range(0,1)) = 0.0
     }
     SubShader {
         Tags {
-            "RenderType"="Opaque"
+            "RenderType"="Transparent"
+            "Queue"="Transparent"
         }
         LOD 200
         
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
-        #pragma surface surf Standard fullforwardshadows
+        #pragma surface surf Standard alpha fullforwardshadows
 
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
 
-        sampler2D _MainTex, _StoneTex, _FlowMap, _NormalMap;
+        sampler2D _MainTex, _StoneTex, _FlowMap, _AlphaLayer;
 
         struct Input
         {
@@ -64,20 +66,27 @@
             fixed xScrollValue = _ScrollXSpeed * _Time;
             fixed yScrollValue = _ScrollYSpeed * _Time;
 
-            scrolledUV += fixed2(xScrollValue, yScrollValue);
+            //scrolledUV += fixed2(xScrollValue, yScrollValue);
+            scrolledUV += _Time;
+            //Hier ^ gaat iets fout
 
             useUV *= _Tiling;
             scrolledUV *= _Tiling;
 
-            o.Albedo = /*tex2D(_MainTex, useUV).rgb **/ tex2D(_StoneTex, useUV).rgb;
+            //o.Albedo = /*tex2D(_MainTex, useUV).rgb **/ tex2D(_StoneTex, useUV).rgb * 0.5;
 
-            half3 c = tex2D(_MainTex, scrolledUV).rgb * 1.5 /** tex2D(_StoneTex, scrolledUV).rgb*/;
+            //o.Albedo = lerp(tex2D(_MainTex, useUV).rgb, tex2D(_StoneTex, useUV).rgb, 1);
+            //o.Alpha = lerp(tex2D(_AlphaLayer, useUV).a, tex2D(_StoneTex, useUV).a, 0) * -1;
+            o.Alpha = tex2D(_AlphaLayer, useUV).a;
+            o.Albedo = tex2D(_StoneTex, useUV).rgb;
+
+            half3 c = tex2D(_MainTex, scrolledUV).rgb * 0/*+ tex2D(_StoneTex, scrolledUV).rgb*/;
                         
-            o.Albedo *= c.rgb;
+            o.Albedo += c.rgb;
             // Metallic and smoothness come from slider variables
             /*o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;*/
-            //o.Alpha = c.a;
+            //o.Alpha = 1;
         }
         ENDCG
     }
