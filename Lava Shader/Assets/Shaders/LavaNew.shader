@@ -24,15 +24,13 @@
         _ScrollYSpeed("Y Speed", Range(0,10)) = 3
 
         [Space(50)]
-
+    
         //Weghalen?
         _Glossiness("Smoothness", Range(0,1)) = 0.5
         _Metallic("Metallic", Range(0,1)) = 0.0
     }
     SubShader {
         Tags {
-            /*"RenderType"="Transparent"
-            "Queue"="Transparent"*/
             "RenderType" = "Opaque"
         }
         LOD 200
@@ -40,8 +38,6 @@
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
         #pragma surface surf Standard fullforwardshadows
-        //#pragma surface surf Standard alpha fullforwardshadows
-
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
 
@@ -50,6 +46,7 @@
         struct Input
         {
             float2 uv_MainTex;
+            //float3 viewDir;
         };
 
         float _Tiling;
@@ -57,6 +54,7 @@
 
         fixed _ScrollXSpeed;
         fixed _ScrollYSpeed;
+
         //half _Glossiness;
         //half _Metallic;
         //fixed4 _Color;
@@ -93,19 +91,18 @@
             scrollUV *= _Tiling;
             flowUV *= _Tiling;
 
-            //Height
-            float3 normal = UnpackNormal(tex2D(_NormalMap, scrollUV));
-
-
-            
+            //Textures
             fixed4 colorMainScroll = tex2D(_MainTex, scrollUV);
             fixed4 colorStoneScroll = tex2D(_StoneTex, scrollUV);
 
+            //Flow
             fixed4 colorMainFlow = tex2D(_MainTex, flowUV);
-            
+
+            //Height
+            float3 normal = UnpackNormal(tex2D(_NormalMap, scrollUV));
 
             o.Albedo = lerp(colorMainScroll.rgb, colorStoneScroll.rgb, colorStoneScroll.a);
-            half3 c = lerp(colorMainFlow.rgb, colorStoneScroll.rgb*0.05, colorStoneScroll.a); //* 0.05 om de kleuren weer goed te krijgen
+            half3 c = lerp(colorMainFlow.rgb, colorStoneScroll.rgb*0, colorStoneScroll.a); //* 0 om de kleuren weer goed te krijgen
                         
             o.Albedo += c.rgb;
             o.Normal = normal;
