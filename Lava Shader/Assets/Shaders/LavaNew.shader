@@ -10,7 +10,8 @@
         [NoScaleOffset] _FlowMap("Flow (RG)", 2D) = "black" {}
         _FlowSpeed("Flowmap play speed", Range(0.0,2.0)) = 1.0
 
-        //[NoScaleOffset] _NormalMap("Normals", 2D) = "bump" {}
+        [NoScaleOffset] _DispMap("Displacement", 2D) = "grey" {} //Displacement
+        [NoScaleOffset] _NormalMap("Normals", 2D) = "bump" {} //Colorful, slope information
 
         [Space(10)]
 
@@ -44,7 +45,7 @@
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
 
-        sampler2D _MainTex, _StoneTex, _FlowMap;
+        sampler2D _MainTex, _StoneTex, _FlowMap, _DispMap, _NormalMap;
 
         struct Input
         {
@@ -91,6 +92,11 @@
             useUV *= _Tiling;
             scrollUV *= _Tiling;
             flowUV *= _Tiling;
+
+            //Height
+            float3 normal = UnpackNormal(tex2D(_NormalMap, scrollUV));
+
+
             
             fixed4 colorMainScroll = tex2D(_MainTex, scrollUV);
             fixed4 colorStoneScroll = tex2D(_StoneTex, scrollUV);
@@ -102,6 +108,7 @@
             half3 c = lerp(colorMainFlow.rgb, colorStoneScroll.rgb*0.05, colorStoneScroll.a); //* 0.05 om de kleuren weer goed te krijgen
                         
             o.Albedo += c.rgb;
+            o.Normal = normal;
             // Metallic and smoothness come from slider variables
             /*o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;*/
