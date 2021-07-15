@@ -61,37 +61,36 @@
             
             float2 useUV = IN.uv_MainTex;
 
-            fixed4 colorFlow = tex2D(_FlowMap, useUV);
+
+            fixed2 scrollUV = useUV;
             
-
-
-            fixed2 scrolledUV = useUV;
-            fixed2 flowUV = useUV;
-
-            float2 flowVector = colorFlow.rg * 2 - 1; //Verandert de range naar -1, 1
-            
-            flowUV *= flowVector;
-            //scrolledUV *= flowVector;
-
             fixed xScrollValue = _ScrollXSpeed * _Time;
             fixed yScrollValue = _ScrollYSpeed * _Time;
 
-            scrolledUV += fixed2(xScrollValue, yScrollValue);
-            //Hier ^ gaat iets fout
+            scrollUV += fixed2(xScrollValue, yScrollValue);
+            
+
+            fixed4 colorFlow = tex2D(_FlowMap, scrollUV);
+            float2 flowVector = colorFlow.rg * 2 - 1; //Verandert de range naar -1, 1
+
+            fixed2 flowUV = useUV;
+
+            flowUV *= flowVector;
             flowUV += _Time;
             
             //Uncomment na testen!
-            useUV *= _Tiling;
+            /*useUV *= _Tiling;
             scrolledUV *= _Tiling;
+            flowUV *= _Tiling;*/
 
-
-
-            fixed4 colorMain = tex2D(_MainTex, useUV);
-            fixed4 colorStone = tex2D(_StoneTex, useUV);
             
-            fixed4 colorMainScroll = tex2D(_MainTex, scrolledUV);
-            fixed4 colorStoneScroll = tex2D(_StoneTex, scrolledUV);
-            fixed4 colorFlowScroll = tex2D(_FlowMap, scrolledUV);
+
+            /*fixed4 colorMain = tex2D(_MainTex, useUV);
+            fixed4 colorStone = tex2D(_StoneTex, useUV);*/
+            
+            fixed4 colorMainScroll = tex2D(_MainTex, scrollUV);
+            fixed4 colorStoneScroll = tex2D(_StoneTex, scrollUV);
+            //fixed4 colorFlowScroll = tex2D(_FlowMap, scrollUV);
 
             fixed4 colorMainFlow = tex2D(_MainTex, flowUV);
             
