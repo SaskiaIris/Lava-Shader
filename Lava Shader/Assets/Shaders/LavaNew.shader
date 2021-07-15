@@ -66,17 +66,19 @@
 
 
             fixed2 scrolledUV = useUV;
+            fixed2 flowUV = useUV;
 
             float2 flowVector = colorFlow.rg * 2 - 1; //Verandert de range naar -1, 1
             
-            scrolledUV *= flowVector;
+            flowUV *= flowVector;
+            //scrolledUV *= flowVector;
 
             fixed xScrollValue = _ScrollXSpeed * _Time;
             fixed yScrollValue = _ScrollYSpeed * _Time;
 
             scrolledUV += fixed2(xScrollValue, yScrollValue);
             //Hier ^ gaat iets fout
-            //scrolledUV += _Time;
+            flowUV += _Time;
             
             //Uncomment na testen!
             useUV *= _Tiling;
@@ -90,12 +92,14 @@
             fixed4 colorMainScroll = tex2D(_MainTex, scrolledUV);
             fixed4 colorStoneScroll = tex2D(_StoneTex, scrolledUV);
             fixed4 colorFlowScroll = tex2D(_FlowMap, scrolledUV);
+
+            fixed4 colorMainFlow = tex2D(_MainTex, flowUV);
             
             
 
-            o.Albedo = lerp(colorMain.rgb, colorStone.rgb, colorStone.a);
+            o.Albedo = lerp(colorMainScroll.rgb, colorStoneScroll.rgb, colorStoneScroll.a);
 
-            half3 c = lerp(colorMainScroll.rgb, colorStone.rgb*0.5, colorStone.a); //* 0.5 om de kleuren weer goed te krijgen
+            half3 c = lerp(colorMainFlow.rgb, colorStoneScroll.rgb*0.5, colorStoneScroll.a); //* 0.5 om de kleuren weer goed te krijgen
                         
             o.Albedo += c.rgb;
             // Metallic and smoothness come from slider variables
