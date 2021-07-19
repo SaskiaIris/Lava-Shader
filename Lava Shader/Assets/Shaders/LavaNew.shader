@@ -3,9 +3,9 @@
         //_Color("Color", Color) = (1,1,1,1)
         //Uitleggen waarom noscaleoffset
         [NoScaleOffset] _MainTex("Albedo (RGB)", 2D) = "white" {}
-        _ContrastMultiplierLava("Adjust Lava Contrast (2)", Range(0.0,5.0)) = 2.0
+        _CorrectContrastLava("Adjust Lava Contrast (2)", Range(0.0,5.0)) = 2.0
         [NoScaleOffset] _StoneTex("Stone Texture", 2D) = "white" {}
-        _ContrastMultiplierStone("Adjust Stone Contrast (0.75)", Range(0.0,5.0)) = 0.75
+        _CorrectContrastStone("Adjust Stone Contrast (0.75)", Range(0.0,5.0)) = 0.75
 
         [Space(10)]
 
@@ -53,8 +53,8 @@
 
         float _Tiling;
         float _FlowSpeed;
-        float _ContrastMultiplierLava;
-        float _ContrastMultiplierStone;
+        float _CorrectContrastLava;
+        float _CorrectContrastStone;
 
         fixed _ScrollXSpeed;
         fixed _ScrollYSpeed;
@@ -63,9 +63,9 @@
         //half _Metallic;
         //fixed4 _Color;
 
-        /*half3 AdjustContrastCurve(half3 color, half contrast) {
+        half3 AdjustContrastCurve(half3 color, half contrast) {
             return pow(abs(color * 2 - 1), 1 / max(contrast, 0.0001)) * sign(color - 0.5) + 0.5;
-        }*/
+        }
 
         half3 AdjustContrast(half3 color, half contrast) {
             #if !UNITY_COLORSPACE_GAMMA
@@ -122,7 +122,7 @@
             float3 normal = UnpackNormal(tex2D(_NormalMap, scrollUV));
 
             o.Albedo = lerp(colorMainScroll.rgb, colorStoneScroll.rgb, colorStoneScroll.a);
-            half3 c = lerp(AdjustContrast(colorMainFlow.rgb, _ContrastMultiplierLava), AdjustContrast(colorStoneScroll.rgb, _ContrastMultiplierStone), colorStoneScroll.a); //* 0 om de kleuren weer goed te krijgen
+            half3 c = lerp(AdjustContrast(colorMainFlow.rgb, _CorrectContrastLava), AdjustContrast(colorStoneScroll.rgb, _CorrectContrastStone), colorStoneScroll.a); //* 0 om de kleuren weer goed te krijgen
 
             o.Albedo += c.rgb;
             o.Normal = normal;
