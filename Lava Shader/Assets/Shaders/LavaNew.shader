@@ -3,7 +3,9 @@
         //_Color("Color", Color) = (1,1,1,1)
         //Uitleggen waarom noscaleoffset
         [NoScaleOffset] _MainTex("Albedo (RGB)", 2D) = "white" {}
+        _ContrastMultiplierLava("Adjust Lava Contrast (2)", Range(0.0,5.0)) = 2.0
         [NoScaleOffset] _StoneTex("Stone Texture", 2D) = "white" {}
+        _ContrastMultiplierStone("Adjust Stone Contrast (0.75)", Range(0.0,5.0)) = 0.75
 
         [Space(10)]
 
@@ -51,6 +53,8 @@
 
         float _Tiling;
         float _FlowSpeed;
+        float _ContrastMultiplierLava;
+        float _ContrastMultiplierStone;
 
         fixed _ScrollXSpeed;
         fixed _ScrollYSpeed;
@@ -58,6 +62,22 @@
         //half _Glossiness;
         //half _Metallic;
         //fixed4 _Color;
+
+        /*half3 AdjustContrastCurve(half3 color, half contrast) {
+            return pow(abs(color * 2 - 1), 1 / max(contrast, 0.0001)) * sign(color - 0.5) + 0.5;
+        }*/
+
+        half3 AdjustContrast(half3 color, half contrast) {
+            #if !UNITY_COLORSPACE_GAMMA
+            color = LinearToGammaSpace(color);
+            #endif
+            color = saturate(lerp(half3(0.5, 0.5, 0.5), color, contrast));
+            #if !UNITY_COLORSPACE_GAMMA
+            color = GammaToLinearSpace(color);
+            #endif
+            return color;
+        }
+
 
 
         // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
@@ -102,14 +122,16 @@
             float3 normal = UnpackNormal(tex2D(_NormalMap, scrollUV));
 
             o.Albedo = lerp(colorMainScroll.rgb, colorStoneScroll.rgb, colorStoneScroll.a);
-            half3 c = lerp(colorMainFlow.rgb, colorStoneScroll.rgb*0, colorStoneScroll.a); //* 0 om de kleuren weer goed te krijgen
-                        
+            half3 c = lerp(AdjustContrast(colorMainFlow.rgb, _ContrastMultiplierLava), AdjustContrast(colorStoneScroll.rgb, _ContrastMultiplierStone), colorStoneScroll.a); //* 0 om de kleuren weer goed te krijgen
+
             o.Albedo += c.rgb;
             o.Normal = normal;
             // Metallic and smoothness come from slider variables
             /*o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;*/
         }
+
+        
         ENDCG
     }
     FallBack "Diffuse"
