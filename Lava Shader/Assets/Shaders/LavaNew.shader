@@ -17,7 +17,8 @@
 
         [Space(10)]
 
-        _Tiling("Tiling", Float) = 1
+        _TilingX("Tiling X", Float) = 1
+        _TilingY("Tiling Y", Float) = 1
 
         [Space(50)]
         
@@ -51,7 +52,8 @@
             //float3 viewDir;
         };
 
-        float _Tiling;
+        float _TilingX;
+        float _TilingY;
         float _FlowSpeed;
         float _CorrectContrastLava;
         float _CorrectContrastStone;
@@ -95,6 +97,8 @@
 
             scrollUV += fixed2(xScrollValue, yScrollValue);
             
+            scrollUV.x *= _TilingX;
+            scrollUV.y *= _TilingY;
 
             fixed4 colorFlow = tex2D(_FlowMap, scrollUV);
             float2 flowVector = colorFlow.rg * 2 - 1; //Verandert de range naar -1, 1, zodat er naar links en naar rechts/boven/onder gegaan kan worden op basis van hoeveelheid kleur en niet in de min nodig is
@@ -105,9 +109,10 @@
             flowUV += _FlowSpeed * _Time; //Time zorgt ervoor dat per tijd de flowmap doorspeelt
             
             //Uncomment na testen!
-            useUV *= _Tiling;
-            scrollUV *= _Tiling;
-            flowUV *= _Tiling;
+            //useUV *= _Tiling;
+            
+            flowUV.x *= _TilingX;
+            flowUV.y *= _TilingY;
 
             //Textures
             fixed4 colorMainScroll = tex2D(_MainTex, scrollUV);
