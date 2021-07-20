@@ -22,8 +22,8 @@
         [Space(50)]
         
 
-        _ScrollXSpeed("X Speed", Range(0,10)) = 2
-        _ScrollYSpeed("Y Speed", Range(0,10)) = 3
+        _ScrollXSpeed("X Speed", Range(-5,5)) = 2
+        _ScrollYSpeed("Y Speed", Range(-5,5)) = 3
 
         [Space(50)]
     
@@ -59,13 +59,13 @@
         fixed _ScrollXSpeed;
         fixed _ScrollYSpeed;
 
-        //half _Glossiness;
-        //half _Metallic;
+        half _Glossiness;
+        half _Metallic;
         //fixed4 _Color;
 
-        half3 AdjustContrastCurve(half3 color, half contrast) {
+        /*half3 AdjustContrastCurve(half3 color, half contrast) {
             return pow(abs(color * 2 - 1), 1 / max(contrast, 0.0001)) * sign(color - 0.5) + 0.5;
-        }
+        }*/
 
         half3 AdjustContrast(half3 color, half contrast) {
             #if !UNITY_COLORSPACE_GAMMA
@@ -77,8 +77,6 @@
             #endif
             return color;
         }
-
-
 
         // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
         // See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
@@ -127,8 +125,8 @@
             o.Albedo += c.rgb;
             o.Normal = normal;
             // Metallic and smoothness come from slider variables
-            /*o.Metallic = _Metallic;
-            o.Smoothness = _Glossiness;*/
+            o.Metallic = _Metallic;
+            o.Smoothness = _Glossiness;
         }
 
         
