@@ -106,15 +106,15 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _RimPower: 3
-    - _ScrollXSpeed: 0.2
-    - _ScrollYSpeed: -0.9
+    - _ScrollXSpeed: 0.1
+    - _ScrollYSpeed: -0.15
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _TestToggle: 0
     - _Tiling: 2.5
-    - _TilingX: 1.5
-    - _TilingY: 6
+    - _TilingX: 4
+    - _TilingY: 4
     - _UVSec: 0
     - _ZWrite: 1
     - _isToggled: 0
