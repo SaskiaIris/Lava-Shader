@@ -125,7 +125,7 @@
             float3 normal = UnpackNormal(tex2D(_NormalMap, scrollUV));
 
             o.Albedo = lerp(colorMainScroll.rgb, colorStoneScroll.rgb, colorStoneScroll.a);
-            half3 c = lerp(AdjustContrast(colorMainFlow.rgb, _CorrectContrastLava), AdjustContrast(colorStoneScroll.rgb, _CorrectContrastStone), colorStoneScroll.a); //* 0 om de kleuren weer goed te krijgen
+            half3 c = lerp(AdjustContrast(colorMainFlow.rgb, _CorrectContrastLava), AdjustContrast(colorStoneScroll.rgb, _CorrectContrastStone), colorStoneScroll.a);
 
             o.Albedo += c.rgb;
             o.Normal = normal;

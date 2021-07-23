@@ -115,7 +115,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 16276
+  controlID: 2350
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 16277
+  controlID: 2351
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 16278
+  controlID: 2352
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -419,10 +419,10 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 142}
-      m_SelectedIDs: 7e7e0000
-      m_LastClickedID: 32382
-      m_ExpandedIDs: 10f6ffff3afbffffe27d0000
+      scrollPos: {x: 0, y: 62}
+      m_SelectedIDs: 6cf5ffff
+      m_LastClickedID: -2708
+      m_ExpandedIDs: 3afbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -482,9 +482,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -7.9192667, y: -23.999538, z: -6.952462}
+    m_Target: {x: 0.82436496, y: -0.7713702, z: 2.8187354}
     speed: 2
-    m_Value: {x: -7.9192667, y: -23.999538, z: -6.952462}
+    m_Value: {x: 0.82436496, y: -0.7713702, z: 2.8187354}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -530,13 +530,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.17728932, y: -0.8236239, z: 0.38717183, w: 0.37500745}
+    m_Target: {x: -0.18285817, y: 0.73157185, z: -0.2140219, w: -0.62121063}
     speed: 2
-    m_Value: {x: -0.17726092, y: 0.82349193, z: -0.38710982, w: -0.37494737}
+    m_Value: {x: -0.183468, y: 0.72958004, z: -0.21343583, w: -0.62329584}
   m_Size:
-    m_Target: 18.503443
+    m_Target: 6.2622313
     speed: 2
-    m_Value: 18.503443
+    m_Value: 6.2622313
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -640,7 +640,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 46}
     m_SelectedIDs: a0870000
     m_LastClickedID: 34720
-    m_ExpandedIDs: 00000000da87000000ca9a3b
+    m_ExpandedIDs: 00000000f088000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -668,7 +668,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000da87000000ca9a3b
+    m_ExpandedIDs: 00000000f088000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -763,11 +763,11 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Third Party Assets/SimpleDungeons/Prefabs/Props
+    - Assets/Third Party Assets/PolygonAdventure/Prefabs/Environments
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Third Party Assets/SimpleDungeons/Prefabs/Props
+  - Assets/Third Party Assets/PolygonAdventure/Prefabs/Environments
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Gebruikers\Iris Oostra\Documents\GitHub\lava-shader\Lava
     Shader
@@ -775,9 +775,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 238}
-    m_SelectedIDs: 20880000
-    m_LastClickedID: 34848
-    m_ExpandedIDs: 00000000da8700000e880000128800001488000000ca9a3b
+    m_SelectedIDs: 0a9d0000
+    m_LastClickedID: 40202
+    m_ExpandedIDs: 00000000f0880000228900002c890000a69c000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -805,7 +805,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000da87000000ca9a3b
+    m_ExpandedIDs: 00000000f088000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -857,7 +857,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 566}
+    m_ScrollPosition: {x: 0, y: 572}
     m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 200
@@ -898,7 +898,7 @@ MonoBehaviour:
     m_PrefName: Preview_InspectorPreview
   m_PreviewWindow: {fileID: 0}
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 646
+  m_LastVerticalScrollValue: 773
 --- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 52
