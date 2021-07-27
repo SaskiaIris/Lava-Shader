@@ -4,16 +4,21 @@
         //Uitleggen waarom noscaleoffset
         [NoScaleOffset] _MainTex("Albedo (RGB)", 2D) = "white" {}
         _CorrectContrastLava("Adjust Lava Contrast (2)", Range(0.0,5.0)) = 2.0
-        [NoScaleOffset] _StoneTex("Stone Texture", 2D) = "white" {}
+        [NoScaleOffset] _StoneTex("Stone Texture", 2D) = "black" {} //make invisible if empty
         _CorrectContrastStone("Adjust Stone Contrast (0.75)", Range(0.0,5.0)) = 0.75
+        [NoScaleOffset] _BurnTex("Burned Lava Texture", 2D) = "black" {}
+        _CorrectContrastBurn("Adjust Burn Contrast (0.75)", Range(0.0,5.0)) = 0.75
+
 
         [Space(10)]
 
         [NoScaleOffset] _FlowMap("Flow (RG)", 2D) = "black" {}
         _FlowSpeed("Flowmap play speed", Range(0.0,2.0)) = 1.0
 
-        [NoScaleOffset] _DispMap("Displacement", 2D) = "grey" {} //Displacement
+        //[NoScaleOffset] _DispMap("Displacement", 2D) = "grey" {} //Displacement
         [NoScaleOffset] _NormalMap("Normals", 2D) = "bump" {} //Colorful, slope information
+
+        _MengWaarde ("Meng waarde", Range(0.0, 1.0)) = 0.5
 
         [Space(10)]
 
@@ -44,7 +49,7 @@
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
 
-        sampler2D _MainTex, _StoneTex, _FlowMap, _DispMap, _NormalMap;
+        sampler2D _MainTex, _StoneTex, _BurnTex, _FlowMap, _DispMap, _NormalMap;
 
         struct Input
         {
@@ -57,6 +62,9 @@
         float _FlowSpeed;
         float _CorrectContrastLava;
         float _CorrectContrastStone;
+        float _CorrectContrastBurn;
+
+        float _MengWaarde;
 
         fixed _ScrollXSpeed;
         fixed _ScrollYSpeed;
@@ -117,15 +125,18 @@
             //Textures
             fixed4 colorMainScroll = tex2D(_MainTex, scrollUV);
             fixed4 colorStoneScroll = tex2D(_StoneTex, scrollUV);
+            fixed4 colorBurnScroll = tex2D(_BurnTex, scrollUV);
 
             //Flow
             fixed4 colorMainFlow = tex2D(_MainTex, flowUV);
+            fixed4 colorBurnFlow = tex2D(_BurnTex, flowUV);
 
             //Height
             float3 normal = UnpackNormal(tex2D(_NormalMap, scrollUV));
 
-            o.Albedo = lerp(colorMainScroll.rgb, colorStoneScroll.rgb, colorStoneScroll.a);
-            half3 c = lerp(AdjustContrast(colorMainFlow.rgb, _CorrectContrastLava), AdjustContrast(colorStoneScroll.rgb, _CorrectContrastStone), colorStoneScroll.a);
+            o.Albedo = lerp(lerp(colorMainScroll.rgb, colorBurnScroll.rgb, colorBurnScroll.a), colorStoneScroll.rgb, colorStoneScroll.a);
+            half3 flow = lerp(AdjustContrast(colorMainFlow.rgb, _CorrectContrastLava), AdjustContrast(colorBurnFlow.rgb, _CorrectContrastBurn), lerp(colorBurnScroll.a, colorBurnFlow.a, _MengWaarde));
+            half3 c = lerp(flow, AdjustContrast(colorStoneScroll.rgb, _CorrectContrastStone), colorStoneScroll.a);
 
             o.Albedo += c.rgb;
             o.Normal = normal;
