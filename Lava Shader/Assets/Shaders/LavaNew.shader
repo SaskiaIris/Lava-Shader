@@ -111,8 +111,8 @@
             //Uncomment na testen!
             //useUV *= _Tiling;
             
-            flowUV.x *= _TilingX;
-            flowUV.y *= _TilingY;
+            //flowUV.x *= _TilingX;
+            //flowUV.y *= _TilingY;
 
             //Textures
             fixed4 colorMainScroll = tex2D(_MainTex, scrollUV);
